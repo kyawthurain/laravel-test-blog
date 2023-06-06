@@ -22,6 +22,7 @@ class ArticleController extends Controller
             $sortType = request()->title ?? 'asc';
             $query->orderBy('title',$sortType);
         })
+        ->latest('id')
         ->paginate(7)
         ->withQueryString();
         return view('article.index',compact('articles'));
@@ -40,9 +41,11 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
+        
         $article = Article::create([
             'title' => $request->title,
             'description' => $request->description,
+            'category_id' => $request->category,
             'user_id' => Auth::id()
         ]);
         return redirect()->route('article.index')->with(['message' =>$article->title.'is successfully created ']);
@@ -73,6 +76,7 @@ class ArticleController extends Controller
         $article->update([
             'title' => $request->title,
             'description' => $request->description,
+            'category_id' => $request->category,
         ]);
 
         return redirect()->route('article.index')->with(['message' =>$article->title.'is successfully updated']);

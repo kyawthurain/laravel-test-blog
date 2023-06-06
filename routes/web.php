@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,7 @@ Route::middleware('auth')->group(function(){
         Route::resource('article',ArticleController::class);
         Route::get('/home', [HomeController::class, 'index'])->name('home');
         Route::get('/users-list',[HomeController::class, 'users'])->name('users');
+        Route::resource('category',CategoryController::class);
     });
     
 });
