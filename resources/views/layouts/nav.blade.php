@@ -17,7 +17,15 @@
             <ul class="navbar-nav ms-auto">
                 <!-- Authentication Links -->
 
-                @auth
+                @auth   
+
+                @can('viewAny', App\Models\Category::class)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('category.index') }}">Categories</a>
+                </li>
+                @endcan
+
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('article.create') }}">Create articles</a>
                     </li>
@@ -26,9 +34,11 @@
                         <a class="nav-link" href="{{ route('article.index') }}">View articles</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('users') }}">Users</a>
+                   @can('show-user-list')
+                   <li class="nav-item">
+                    <a class="nav-link" href="{{ route('users') }}">Users</a>
                     </li>
+                   @endcan
 
 
                 @endauth

@@ -8,7 +8,7 @@
                     View Article
                 </h3>
                 <div class=" mb-4 mt-3">
-                    <a href="{{ route('article.create')}}" class=" btn btn-outline-dark">
+                    <a href="{{ route('article.create') }}" class=" btn btn-outline-dark">
                         create new article
                     </a>
                 </div>
@@ -39,27 +39,36 @@
                                     </span>
                                 </td>
                                 <td>
-                                    {{$article->category_id}}
+                                    {{ $article->category_id }}
                                 </td>
                                 <td>
-                                    {{$article->user_id}}
+                                    {{ $article->user_id }}
                                 </td>
                                 <td>
                                     <div class=" btn btn-group">
 
-                                        <a href="{{ route('article.show',$article->id) }}" class=" btn btn-sm btn-outline-dark">
-                                        <i class="bi bi-question-lg"></i>
+                                        <a href="{{ route('article.show', $article->id) }}"
+                                            class=" btn btn-sm btn-outline-dark">
+                                            <i class="bi bi-question-lg"></i>
                                         </a>
-                                        <a href="{{ route('article.edit',$article->id) }}" class=" btn btn-sm btn-outline-dark">
-                                            <i class="bi bi-pencil-fill"></i>
-                                        </a>
-                                        <button form="articleDeleteForm{{$article->id}}" class=" btn btn-sm btn-outline-dark">
+                                        @can('update', $article)
+                                            <a href="{{ route('article.edit', $article->id) }}"
+                                                class=" btn btn-sm btn-outline-dark">
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </a>
+                                        @endcan
+                                        @can('delete', $article)
+                                        <button form="articleDeleteForm{{ $article->id }}"
+                                            class=" btn btn-sm btn-outline-dark">
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
+                                        
+                                        @endcan
                                     </div>
-                                    <form id="articleDeleteForm{{$article->id}}" class=" d-inline-block" action="{{ route('article.destroy',$article->id) }}" method="POST">
-                                    @method('delete')
-                                    @csrf
+                                    <form id="articleDeleteForm{{ $article->id }}" class=" d-inline-block"
+                                        action="{{ route('article.destroy', $article->id) }}" method="POST">
+                                        @method('delete')
+                                        @csrf
                                     </form>
                                 </td>
                                 <td>
@@ -90,21 +99,19 @@
                                 </td>
                             </tr>
 
-                            @empty
+                        @empty
                             <tr>
                                 <td colspan="7" class=" text-center">
                                     No data is here <br>
-                                    <a href="{{route('article.create')}}">Go to add some!</a>
+                                    <a href="{{ route('article.create') }}">Go to add some!</a>
                                 </td>
                             </tr>
-                            @endforelse
+                        @endforelse
 
-                        </tbody>
+                    </tbody>
                 </table>
                 {{ $articles->onEachSide(1)->links() }}
             </div>
         </div>
     </div>
 @endsection
-
-

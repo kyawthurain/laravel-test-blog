@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
@@ -14,18 +15,19 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::when(request()->has('keyword'),function($query){
+        $this->authorize('viewAny',Category::class);
+        $categories = Category::when(request()->has('keyword'), function ($query) {
             $keyword = request()->keyword;
-            $query->where('title','like',"%".$keyword."%");
+            $query->where('title', 'like', "%" . $keyword . "%");
         })
-        ->when(request()->has("title"),function($query){
-            $sortType = request()->title ?? 'asc';
-            $query->orderBy('title',$sortType);
-        })
-        ->latest('id')
-        ->paginate(7)
-        ->withQueryString();
-        return view('category.index',compact('categories'));
+            ->when(request()->has("title"), function ($query) {
+                $sortType = request()->title ?? 'asc';
+                $query->orderBy('title', $sortType);
+            })
+            ->latest('id')
+            ->paginate(7)
+            ->withQueryString();
+        return view('category.index', compact('categories'));
     }
 
     /**
@@ -46,7 +48,7 @@ class CategoryController extends Controller
             'description' => $request->description,
             'user_id' => Auth::id()
         ]);
-        return redirect()->route('category.index')->with(['message' =>$category->title.'is successfully created ']);
+        return redirect()->route('category.index')->with(['message' => $category->title . 'is successfully created ']);
     }
 
     /**
@@ -63,7 +65,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('category.edit',compact('category'));
+        return view('category.edit', compact('category'));
     }
 
     /**
@@ -71,12 +73,15 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        
+
+        if($request->user()->cannot('update',$category)){
+            return abort(403,'Goodbye World');
+        }
         $category->update([
             'title' => $request->title,
         ]);
 
-        return redirect()->route('category.index')->with(['message' =>$category->title.'is successfully updated']);
+        return redirect()->route('category.index')->with(['message' => $category->title . 'is successfully updated']);
     }
 
     /**

@@ -26,6 +26,10 @@
                         <button class=" btn btn-dark">
                             Update category
                         </button>
+
+                        <a href="{{ route('category.index') }}" class=" btn btn-outline-dark">
+                            Cancel
+                        </a>
                 </form>
             </div>
         </div>

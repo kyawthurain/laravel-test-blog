@@ -18,7 +18,7 @@ class CategorySeeder extends Seeder
         foreach($categories as $category){
             $categorySeed[] = [
                 'title' => $category,
-                'user_id' => rand(1,11),
+                'user_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];

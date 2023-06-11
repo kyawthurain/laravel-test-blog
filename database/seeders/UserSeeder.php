@@ -18,9 +18,16 @@ class UserSeeder extends Seeder
             'name' => 'Kyaw Thurain',
             'email' => 'kyawthurain@gmail.com',
             'password' => Hash::make('kyawthurain'),
+            'role' => 'admin',
+        ]);
+
+        User::factory()->create([
+            'name' => 'Phyo Lay',
+            'email' => 'pl@gmail.com',
+            'password' => Hash::make('kyawthurain'),
         ]);
         
-        User::factory(11)->create();
+        User::factory(8)->create();
 
     }
 }
