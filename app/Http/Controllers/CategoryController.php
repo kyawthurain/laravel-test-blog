@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny',Category::class);
+        
         $categories = Category::when(request()->has('keyword'), function ($query) {
             $keyword = request()->keyword;
             $query->where('title', 'like', "%" . $keyword . "%");
@@ -65,6 +65,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        $this->authorize('update',$category);
         return view('category.edit', compact('category'));
     }
 
@@ -73,6 +74,7 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
+        $this->authorize('update',$category);
 
         if($request->user()->cannot('update',$category)){
             return abort(403,'Goodbye World');
@@ -89,6 +91,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $this->authorize('delete',$category);
+
         $category->delete();
         return redirect()->back()->with(['message' => 'category deleted successfully']);
     }

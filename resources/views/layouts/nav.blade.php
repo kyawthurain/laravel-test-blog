@@ -19,6 +19,12 @@
 
                 @auth   
 
+                <li class=" nav-item">
+                    <a href="" class=" nav-link disabled">
+                        {{ Auth::user()->role }}
+                    </a>
+                </li>
+
                 @can('viewAny', App\Models\Category::class)
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('category.index') }}">Categories</a>
@@ -34,7 +40,7 @@
                         <a class="nav-link" href="{{ route('article.index') }}">View articles</a>
                     </li>
 
-                   @can('show-user-list')
+                   @can('admin-only')
                    <li class="nav-item">
                     <a class="nav-link" href="{{ route('users') }}">Users</a>
                     </li>

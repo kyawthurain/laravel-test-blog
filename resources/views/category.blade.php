@@ -4,9 +4,17 @@
     
             
                         <div class=" d-flex justify-content-between">
-                            @if (request()->has('keyword'))
+                            @if (request()->has('keyword') && $category->title)
                             <p>
-                                Show results by '{{ request()->keyword }}'
+                                Show results by '{{ request()->keyword }}' and '{{ $category->title }}'
+                            </p>
+                            <a href="{{ route('index') }}" class=" text-dark">
+                                Clear result
+                            </a>
+
+                            @elseif ($category->title)
+                            <p>
+                                Show results by '{{ $category->title }}'
                             </p>
                             <a href="{{ route('index') }}" class=" text-dark">
                                 Clear result

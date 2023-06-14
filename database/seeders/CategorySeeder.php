@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
+
 
 class CategorySeeder extends Seeder
 {
@@ -18,6 +20,7 @@ class CategorySeeder extends Seeder
         foreach($categories as $category){
             $categorySeed[] = [
                 'title' => $category,
+                'slug' => Str::slug($category),
                 'user_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),

@@ -12,12 +12,14 @@
                         create new article
                     </a>
                 </div>
-                <table class=" table table-bordered rounded">
-                    <thead>
+                <table class=" table">
+                    <thead class="">
                         <th>Id</th>
                         <th>Title</th>
                         <th>Category</th>
+                        @can('admin-only')
                         <th>Author</th>
+                        @endcan
                         <th>Action</th>
                         <th>Created time</th>
                         <th>Updated time</th>
@@ -25,6 +27,7 @@
                     <tbody>
 
                         @forelse ($articles as $article)
+                        
                             <tr>
                                 <td>
                                     {{ $article->id }}
@@ -39,11 +42,13 @@
                                     </span>
                                 </td>
                                 <td>
-                                    {{ $article->category_id }}
+                                    {{ $article->category->title ?? 'unknown' }}
                                 </td>
+                                @can('admin-only')
                                 <td>
-                                    {{ $article->user_id }}
+                                    {{ ($article->user->name ?? 'anonymous') }}
                                 </td>
+                                @endcan
                                 <td>
                                     <div class=" btn btn-group">
 

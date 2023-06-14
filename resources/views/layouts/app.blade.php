@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,13 +17,35 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
+
 <body>
     <div id="app">
-        
-        @include('layouts.nav')
-        <main class="py-4">
-            @yield('content')
-        </main>
+
+        @auth
+            @include('layouts.nav')
+            <main class="py-4">
+                @yield('content')
+            </main>
+        @endauth
+
+
+        @guest
+            @include('layouts.nav')
+            <main class="py-4">
+                <div class="container">
+                    <div class=" row">
+                        <div class=" col-12 col-md-8 mt-3">
+                            @yield('content')
+                        </div>
+                        <div class=" col-md-4 mt-3">
+                            @include('layouts.right-sidebar')
+                        </div>
+                    </div>
+            </main>
+        @endguest
+
     </div>
+    {{-- <footer class=" py-3 bg-dark"></footer> --}}
 </body>
+
 </html>

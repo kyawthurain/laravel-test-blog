@@ -38,17 +38,24 @@
                                     </span>
                                 </td>
                                 <td>
-                                    {{$category->user_id}}
+                                    {{$category->user->name}}
                                 </td>
                                 <td>
                                     <div class=" btn btn-group">
 
+                                        
+                                        @can('update', $category)
                                         <a href="{{ route('category.edit',$category->id) }}" class=" btn btn-sm btn-outline-dark">
                                             <i class="bi bi-pencil-fill"></i>
                                         </a>
+                                        @endcan
+
+                                        @can('delete', $category)
                                         <button form="categoryDeleteForm{{$category->id}}" class=" btn btn-sm btn-outline-dark">
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
+                                        @endcan
+
                                     </div>
                                     <form id="categoryDeleteForm{{$category->id}}" class=" d-inline-block" action="{{ route('category.destroy',$category->id) }}" method="POST">
                                     @method('delete')

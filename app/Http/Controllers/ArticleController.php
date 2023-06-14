@@ -19,6 +19,9 @@ class ArticleController extends Controller
             $keyword = request()->keyword;
             $query->where('title','like',"%".$keyword."%");
         })
+        ->when(Auth::user()->role !== 'admin',function($q){
+            $q->where('user_id',Auth::id());
+        })
         ->when(request()->has("title"),function($query){
             $sortType = request()->title ?? 'asc';
             $query->orderBy('title',$sortType);

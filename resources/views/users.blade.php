@@ -11,6 +11,8 @@
                     <thead>
                         <th>User Id</th>
                         <th>Name</th>
+                        <th>Article count</th>
+                        <th>Category count</th>
                         <th>Email</th>
                         <th>Created time</th>
                     </thead>
@@ -23,6 +25,14 @@
                                 </td>
                                 <td>
                                     {{ $user->name }}
+                                </td>
+                                <td>
+                                    {{ $user->articles->count('id') }}
+
+                                </td>
+                                <td>
+                                    {{ $user->categories->count('id') }}
+
                                 </td>
                                 <td>
                                     {{$user->email}}
