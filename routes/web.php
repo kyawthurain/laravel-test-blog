@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
 use App\Models\Category;
@@ -24,6 +25,10 @@ Route::controller(PageController::class)->group(function(){
     Route::get('/show-public/{slug}','showPublic')->name('showPublic');
     Route::get('/category/{slug}','category')->name('category');
 });
+
+
+Route::resource('comment',CommentController::class)->only(['store','update','destroy'])->middleware('auth');
+
 Auth::routes();
 
 

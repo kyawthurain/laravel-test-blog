@@ -1,3 +1,5 @@
+
+<div class=" position-sticky" style="top:70px;" >
     <div>
         <p class=" mb-1">
             Article search
@@ -11,7 +13,7 @@
             </form>
         </div>
     </div>
-    <div>
+    <div class=" categories mb-3">
         <p class=" mb-1">
             Article categories
         </p>
@@ -26,3 +28,17 @@
             @endforeach
         </div>
     </div>
+
+    <div class=" recent-articles mb-3">
+        <p class=" mb-1">
+            Recent articles
+        </p>
+        <div class=" list-group">
+            @foreach (App\Models\Article::latest('id')->limit(5)->get() as $article)
+                <a href="{{ route('showPublic',$article->slug) }}" class=" list-group-item list-group-item-action">
+                    {{ $article->title }}
+                </a>
+            @endforeach
+        </div>
+    </div>
+</div>

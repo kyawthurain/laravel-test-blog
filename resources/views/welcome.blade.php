@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
     
@@ -39,9 +39,20 @@
                                         Read More
                                     </a>
                             </div>
-                            </div>
+                        </div>
                         @empty
-                            
+                        <div class=" card p-2 mb-3">
+
+                            <div class=" card-body text-center">
+                                <h3 class=" card-title">
+                                    There is no article
+                                </h3>
+                                <p class=" mb-3">You can create articles with your own account</p>
+                                <a href="{{ route('article.create') }}" class=" btn btn-sm btn-outline-dark">
+                                    create here
+                                </a>
+                            </div>
+                        </div>
                         @endforelse
                         {{ $articles->onEachSide(1)->links() }}
                 

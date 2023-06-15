@@ -28,8 +28,14 @@ class UserSeeder extends Seeder
             'role' => 'admin',
 
         ]);
+
+        User::factory()->create([
+            'name' => 'Dk',
+            'email' => 'dk@gmail.com',
+            'password' => Hash::make('kyawthurain'),
+        ]);
         
-        User::factory(8)->create();
+        User::factory(7)->create();
 
     }
 }

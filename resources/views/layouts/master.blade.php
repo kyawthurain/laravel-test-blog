@@ -21,16 +21,22 @@
 <body>
     <div id="app" class=" min-vh-100 d-flex flex-column " >
 
+            @include('layouts.nav')
+            <main class="py-4">
+                <div class="container">
+                    <div class=" row">
+                        <div class=" col-12 col-md-8 mt-3">
+                            @yield('content')
+                        </div>
+                        <div class=" col-md-4 mt-3">
+                            @include('layouts.right-sidebar')
+                        </div>
+                    </div>
+            </main>
+        
+            <footer class=" py-4 bg-dark text-center text-white mt-auto">Kaung Khant</footer>
 
-
-        @include('layouts.nav')
-        <main class="py-4">
-            @yield('content')
-        </main>
-
-        <footer class=" py-4 bg-dark text-center text-white mt-auto">Kaung Khant</footer>
     </div>
 </body>
 
 </html>
-
